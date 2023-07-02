@@ -7,7 +7,36 @@ quizSize = 15
 #---------------------------------------------------------------------
 #Data sets (Will be moved to files later for better storage)
 #---------------------------------------------------------------------
-mc_eng_pol = {
+
+
+#Type 1 data (MC)
+#Dictionary 1 : 4
+adj_conj_data = {
+    "This test is very difficult\nTen test jest bardzo [______]" : ["trudny", "trudnego", "trudna", "trudno"],
+    "I want a new jacket.\nChcę [_____]  kurtkę.":["nową","nowy","nowa","nowe"]
+}
+
+#Type 2 data (FITB)
+#Dictionary 1 : 1
+sentance_translation_data = {
+    "She is very sweet." : "Ona jest bardzo słodka."
+}
+
+#Type 3 data (FITB)
+#Dictionary 1 : 1
+pluralization_data = {
+    "Paczka" : "Paczki"
+}
+
+#Type 3/2 data (FITB)
+#Dictionary 1 : 1
+locative_grammar_data = {
+    "Dom" : "Domu"
+}
+
+#Type 5 DATA (MC / FITB)
+#Dictionary 1 : 1
+mc_eng_pol_data = {
     "Easy" : "łatwy",
     "Difficult" : "trudny",
     "Hard" : "twardy",
@@ -16,19 +45,34 @@ mc_eng_pol = {
     "Wide" : "szeroki",
 }
 
-fitb = {
-    "A" : ["B","CCCCCCCCCCCCCCCCCCcc"],
+#Type 6 Data (FITB)
+#Dictionary 1 : 2
+correct_case_ending_data = {
+    "I see (Widzę)" : ["They see [_____]", "Widzą"],
 }
 
-adj_conj = {
-    "This test is very difficult\nTen test jest bardzo [______]" : ["trudny", "trudnego", "trudna", "trudno"],
-    "I want a new jacket.\nChcę [_____]  kurtkę.":["nową","nowy","nowa","nowe"]
-}
 
 
 #---------------------------------------------------------------------
 #Helper Functions:
 #---------------------------------------------------------------------
+
+#Takes a FITB question, presents it, and returns the validity of the answer
+#Used to do work for multiple types of FITB questions.
+#All params should be strings.
+def fillInTheBlanks(question, answer, description):
+    print(description + "\n" + question)
+    print("(Press enter to skip)")
+    userAnswer = input()
+    if userAnswer == '':
+        return 2
+    elif userAnswer.lower() == answer.lower():
+        print("Correct!")
+        return 1
+    else:
+        print("Incorrect.\nThe correct answer was:\n" + answer)
+        return 0
+
 
 def checkAnswer(answer, userAnswer):
     if userAnswer == answer or userAnswer == answer + ")":
@@ -38,6 +82,15 @@ def checkAnswer(answer, userAnswer):
         return -1
     print("Incorrect.\n The correct answer was: "+ answer + ".")
     return 0
+
+def FITB(dataSet, description):
+    questionsList = list(dataSet.keys())
+    questionIndex = random.randint(0, len(questionsList)-1)
+    question = questionsList[questionIndex]         
+    answer = dataSet[question]
+    print("Answer = "+str(answer))
+    return fillInTheBlanks(question, answer, description)
+
 
 #---------------------------------------------------------------------
 #Question Functions 
@@ -59,17 +112,8 @@ def adjConj():
         print(str(x+1) + ") "+ str(answerList[x]))
         if answerList[x] == answer:
             answer = str(x+1)  #set the answer index
-
-    print(answer + " (index)")
+            
     return(checkAnswer(answer, input()))
-
-    
-    
-
-    
-    
-
-
 
 
 def multipleChoice(): #mc_eng_pol
@@ -96,30 +140,21 @@ def multipleChoice(): #mc_eng_pol
     userAnswer = input()
     return checkAnswer(str(answerIndex+1), str(userAnswer).lower())
 
+# def sentanceFITB():
+#     questionsList = list(fitb.keys())
+#     questionIndex = random.randint(0, len(questionsList)-1)
+#     translation = questionsList[questionIndex]
+#     question = fitb[translation][0]
+#     answer = fitb[translation][1]
+#     return fillInTheBlanks(question, answer, "", "Translate the sentance:")
 
-def fillInTheBlanks(): #fitb
-    questionsList = list(fitb.keys())
-    questionIndex = random.randint(0, len(questionsList)-1)
-    translation = questionsList[questionIndex]
-    question = fitb[translation][0]
-    answer = fitb[translation][1]
-    
-    
-    print("Fill in the blank:")
-    print(translation)
-    print(question + " " + "_"*len(answer))
-    print("(Press enter without typing to skip)")
-    userAnswer = input()
-    if userAnswer == '':
-        return 2
-    elif userAnswer.lower() == answer:
-        print("Correct!")
-        return 1
-    else:
-        print("Incorrect.\n The correct phrase was:\n"+question + " " + answer + ".")
-        return 0
-
-
+# def pluralizeWord():
+#     questionsList = list(fitb.keys())
+#     questionIndex = random.randint(0, len(questionsList)-1)
+#     translation = questionsList[questionIndex]
+#     question = fitb[translation][0]
+#     answer = fitb[translation][1]
+#     return fillInTheBlanks(question, answer, "", "Translate the sentance:")
 
 
 
@@ -132,10 +167,20 @@ def chooseQuestion(quizType):
     #     return(multipleChoice())
     # elif quizType <=100:
     #     return(fillInTheBlanks())
-   # return(multipleChoice())
-   return adjConj()
-        
+
+    #return(multipleChoice())
+    #return adjConj()
+    #return adj_conj()                                                                       #Type 1
+    return FITB(sentance_translation_data, "Translate the sentance into Polish:")                                #Type 2
+    #return FITB(fitb, "Correctly pluralize the noun:")                                      #Type 3
+    #Type 4: Requires both FITB and MC, unique
+    return FITB(fitb, "Translate the following word: ")                                     #Type 5
+    return FITB(fitb, "Use the locative case for the following noun:")                      #Type 3.5
+    return FITB(fitb, "Conjugate the word to describe the person in the given example:")    #Type 6
     
+
+
+
 def startQuiz():
     submit = ""
     totalCorrect = 0
