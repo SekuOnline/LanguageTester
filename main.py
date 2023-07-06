@@ -1,80 +1,18 @@
-import random
+import random, json
 #---------------------------------------------------------------------
 #Global Variables | Ease of use changing of important test numbers
 #---------------------------------------------------------------------
 
 quizSize = 15
-#---------------------------------------------------------------------
-#Data sets (Will be moved to files later for better storage)
-#---------------------------------------------------------------------
-
-
-#Type 1 data (MC)
-#Dictionary 1 : 4
-adj_conj_data = {
-    "This test is very difficult\nTen test jest bardzo [______]" : ["trudny", "trudnego", "trudna", "trudno"],
-    "I want a new jacket.\nChcę [_____]  kurtkę.":["nową","nowy","nowa","nowe"]
-}
-
-#Type 2 data (FITB)
-#Dictionary 1 : 1
-sentance_translation_data = {
-    "She is very sweet." : "Ona jest bardzo słodka."
-}
-
-#Type 3 data (FITB)
-#Dictionary 1 : 1
-pluralization_data = {
-    "Paczka" : "Paczki"
-}
-
-#Type 3/2 data (FITB)
-#Dictionary 1 : 1
-locative_grammar_data = {
-    "Dom" : "Domu"
-}
-
-#Type 5 DATA (MC / FITB)
-#Dictionary 1 : 1
-mc_eng_pol_data = {
-    "Easy" : "łatwy",
-    "Difficult" : "trudny",
-    "Hard" : "twardy",
-    "Heavy" : "ciężki",
-    "Scarf" : "szalik",
-    "Wide" : "szeroki",
-}
-
-#Type 6 Data (FITB)
-#Dictionary 1 : 2
-correct_case_ending_data = {
-    "I see (Widzę)" : ["They see [_____]", "Widzą"],
-}
-
-
 
 #---------------------------------------------------------------------
 #Helper Functions:
 #---------------------------------------------------------------------
 
-#Takes a FITB question, presents it, and returns the validity of the answer
-#Used to do work for multiple types of FITB questions.
-#All params should be strings.
-def fillInTheBlanks(question, answer, description):
-    print(description + "\n" + question)
-    print("(Press enter to skip)")
-    userAnswer = input()
-    if userAnswer == '':
-        return 2
-    elif userAnswer.lower() == answer.lower():
-        print("Correct!")
-        return 1
-    else:
-        print("Incorrect.\nThe correct answer was:\n" + answer)
-        return 0
-
 
 def checkAnswer(answer, userAnswer):
+    userAnswer = userAnswer.lower()
+    answer = answer.lower()
     if userAnswer == answer or userAnswer == answer + ")":
         print("Correct!")
         return 1
@@ -83,7 +21,7 @@ def checkAnswer(answer, userAnswer):
     print("Incorrect.\n The correct answer was: "+ answer + ".")
     return 0
 
-def FITB(dataSet, description):
+def setupFITB(dataSet, description):
     questionsList = list(dataSet.keys())
     questionIndex = random.randint(0, len(questionsList)-1)
     question = questionsList[questionIndex]         
@@ -96,98 +34,110 @@ def FITB(dataSet, description):
 #Question Functions 
 #---------------------------------------------------------------------
 
-#adjective conjugation, MC
-def adjConj():
-    keys = list(adj_conj.keys())
-    values = list(adj_conj.values())
-    q_index = random.randint(0, len(keys)-1)
-    answer = values[q_index][0]
-    print(answer)
-    answerList = random.sample(range(0,4), 4)
-    print(answerList)
-    print(values)
-    print("Place the correct word to finish the sentence:\n"+keys[q_index])
-    for x in range(4):
-        answerList[x] = values[q_index][answerList[x]]
-        print(str(x+1) + ") "+ str(answerList[x]))
-        if answerList[x] == answer:
-            answer = str(x+1)  #set the answer index
-            
-    return(checkAnswer(answer, input()))
-
-
-def multipleChoice(): #mc_eng_pol
-    #Decide whether the question is polish or english answer (50/50)
-
-    if (random.randint(0,2) == 0):  #English Question, Polish answer
-        questions = list(mc_eng_pol.keys())
-        answers = list(mc_eng_pol.values())
-    else:
-        questions = list(mc_eng_pol.values())  #Polish Question, English Answer
-        answers = list(mc_eng_pol.keys())
-
-    indexes = random.sample(range(0, len(mc_eng_pol)), 4)
+def fillInTheBlanks(question, answer, description):
+    print(description + "\n" + question)
+    if (type(answer) is list):
+        print(answer[0])
+        answer = answer[1]
     
-    #Select an answer 
-    answerIndex = random.randint(0,3)
-
-    print("What is the correct translation of "+questions[indexes[answerIndex]]+"?")
-    count = 1
-    print(answerIndex+1)
-    for i in indexes:
-        print(str(count)+") "+answers[i])
-        count+=1
+    print("(Press enter to skip)")
     userAnswer = input()
-    return checkAnswer(str(answerIndex+1), str(userAnswer).lower())
+    if userAnswer == '':
+        return 2
+    elif userAnswer.lower() == answer.lower():
+        print("Correct!")
+        return 1
+    else:
+        print("Incorrect.\nThe correct answer was:\n" + answer)
+        return 0
+    
 
-# def sentanceFITB():
-#     questionsList = list(fitb.keys())
-#     questionIndex = random.randint(0, len(questionsList)-1)
-#     translation = questionsList[questionIndex]
-#     question = fitb[translation][0]
-#     answer = fitb[translation][1]
-#     return fillInTheBlanks(question, answer, "", "Translate the sentance:")
+def multipleChoice(dataset, description):
+    keys = list(dataset.keys())
+    values = list(dataset.values())
+    q_index = random.randint(0, len(keys)-1)
+    answer = values[q_index]
+    #check whether the dataset has pre-built answers, or should randomize it
+    if (type(answer) is list):          #Type is list, MC options are built in
+        answer = values[q_index][0]
+        answerList = random.sample(range(0,4), 4)
+        # print(answerList)
+        # print(values)
+        print(description+"\n"+keys[q_index])
+        for x in range(len(answerList)):
+            answerList[x] = values[q_index][answerList[x]]
+            print(str(x+1) + ") "+ str(answerList[x]))
+            if answerList[x] == answer:
+                answer = str(x+1)  #set the answer index
+    else:                               #Type is string containing only the answer, randomize other options.
 
-# def pluralizeWord():
-#     questionsList = list(fitb.keys())
-#     questionIndex = random.randint(0, len(questionsList)-1)
-#     translation = questionsList[questionIndex]
-#     question = fitb[translation][0]
-#     answer = fitb[translation][1]
-#     return fillInTheBlanks(question, answer, "", "Translate the sentance:")
+        indexes = random.sample(range(0, len(values)), 4)
+        answerIndex = random.randint(0,3)
+        print("What is the correct translation of "+keys[indexes[answerIndex]]+"?")
+        print(answerIndex+1)
+        count = 1
+        for i in indexes:
+            print(str(count)+") "+values[i])
+            count+=1
+           
+        return checkAnswer(str(answerIndex+1), input())
 
+
+        
+        
+    return checkAnswer(answer, input())
+
+
+def typeFour(dataset):
+    keys = list(dataset.keys())
+    values = list(dataset.values())
+    questionIndex = random.randint(0, len(values)-1)
+    if (multipleChoice({keys[questionIndex] : values[questionIndex][0]}, "Choose the correct adjective:")):
+        
+        return fillInTheBlanks(values[questionIndex][1], values[questionIndex][2], "Now pluralize the adjective and noun pairing:")
+    
+    else:
+        return 0
 
 
 #---------------------------------------------------------------------
 #Main Functions
 #---------------------------------------------------------------------
 
-def chooseQuestion(quizType):
-    # if 0 <= quizType <= 66:   #Fill in the blanks
-    #     return(multipleChoice())
-    # elif quizType <=100:
-    #     return(fillInTheBlanks())
+def chooseQuestion(data):
 
-    #return(multipleChoice())
-    #return adjConj()
-    #return adj_conj()                                                                       #Type 1
-    return FITB(sentance_translation_data, "Translate the sentance into Polish:")                                #Type 2
-    #return FITB(fitb, "Correctly pluralize the noun:")                                      #Type 3
-    #Type 4: Requires both FITB and MC, unique
-    return FITB(fitb, "Translate the following word: ")                                     #Type 5
-    return FITB(fitb, "Use the locative case for the following noun:")                      #Type 3.5
-    return FITB(fitb, "Conjugate the word to describe the person in the given example:")    #Type 6
-    
+    questionSelect = random.randint(0,7)
+    print("(Question type " + str(questionSelect+1)+")")
 
+    if questionSelect == 0:
+        return multipleChoice(data["adj_conj_data"], "Place the correct word to finish the sentence:")
+    elif questionSelect == 1:
+        return setupFITB(data["sentence_translation_data"], "Translate the sentance into Polish:")
+    elif questionSelect == 2:
+        return setupFITB(data("pluralization_data"), "Correctly pluralize the noun:")
+    elif questionSelect == 3:
+        return typeFour(data("follow_up_data"))
+    elif questionSelect == 4:
+        return multipleChoice(data("mc_eng_pol_data"), "Translate the following word:")
+    elif questionSelect == 5:
+        return setupFITB(data("locative_grammar_data"), "Use the locative case for the following noun:")
+    elif questionSelect == 6:
+        return setupFITB(data("correct_case_ending_data"), "Testing")
+        
+def addData(data):
+    data["testing"] = "bleh"
+    with open("data.json", 'w') as outfile:
+        outfile.write(json.dumps(data, indent=4))
+        print("Wrote to file.")
+        return
 
-
-def startQuiz():
+def startQuiz(data):
     submit = ""
     totalCorrect = 0
     totalQuestion = 1
     while (submit != "Quit" or submit != "Q" or submit != "quit"):
         print("-----------------------------------------\nQuestion "+str(totalQuestion)+":")
-        questionResult = chooseQuestion(random.randint(0,100))
+        questionResult = chooseQuestion(data)
         #Scoring system: 1 is a correct answer, -1 is exit quiz
         
         if (questionResult == 1):
@@ -209,19 +159,24 @@ def startQuiz():
         totalQuestion+=1  
 
 
-
 def main():
+    with open('data.json') as json_file:
+        data = json.load(json_file)
+    
     menu = 0
     while (menu != -1):
         print('''Select an option and press enter:
 1. Polish Quiz
-2. Quit''')
+2. Quit
+3. Add data''')
         menu = input()
         if (menu == '1'):
-            startQuiz()
+            startQuiz(data)
         elif (menu == '2'):
             print("Quitting")
             exit()
+        elif (menu == '3'):
+            addData(data)
         else:
             print('Invalid option selected, try again.\n')
 

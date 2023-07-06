@@ -1,0 +1,62 @@
+{
+    "adj_conj_data": {
+        "This test is very difficult\nTen test jest bardzo [______]": [
+            "trudny",
+            "trudnego",
+            "trudna",
+            "trudno"
+        ],
+        "I want a new jacket.\nChc\u00c4\u2122 [_____]  kurtk\u00c4\u2122.": [
+            "now\u00c4\u2026",
+            "nowy",
+            "nowa",
+            "nowe"
+        ]
+    },
+    "sentence_translation_data": {
+        "She is very sweet.": "Ona jest bardzo s\u00c5\u201aodka."
+    },
+    "pluralization_data": {
+        "Paczka": "Paczki"
+    },
+    "locative_grammar_data": {
+        "Dom": "Domu"
+    },
+    "follow_up_data": {
+        "Bright Light": [
+            [
+                "jasne",
+                "jasny",
+                "jasna",
+                "jasnego"
+            ],
+            "Bright Lights",
+            "Jasnego \u00c5\u203awiat\u00c5\u201aa."
+        ],
+        "Bright Light2": [
+            [
+                "jasne",
+                "jasny",
+                "jasna",
+                "jasnego"
+            ],
+            "Bright Lights",
+            "Jasnego \u00c5\u203awiat\u00c5\u201aa."
+        ]
+    },
+    "mc_eng_pol_data": {
+        "Easy": "\u00c5\u201aatwy",
+        "Difficult": "trudny",
+        "Hard": "twardy",
+        "Heavy": "ci\u00c4\u2122\u00c5\u00bcki",
+        "Scarf": "szalik",
+        "Wide": "szeroki"
+    },
+    "correct_case_ending_data": {
+        "I see (Widz\u00c4\u2122)": [
+            "They see [_____]",
+            "Widz\u00c4\u2026"
+        ]
+    },
+    "testing": "bleh"
+}
