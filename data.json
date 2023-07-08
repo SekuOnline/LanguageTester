@@ -6,24 +6,89 @@
             "trudna",
             "trudno"
         ],
-        "I want a new jacket.\nChc\u00c4\u2122 [_____]  kurtk\u00c4\u2122.": [
-            "now\u00c4\u2026",
+        "I want a new jacket.\nChcę [_____]  kurtkę.": [
+            "nową",
             "nowy",
             "nowa",
             "nowe"
         ]
     },
+
+
     "sentence_translation_data": {
-        "She is very sweet.": "Ona jest bardzo s\u00c5\u201aodka."
+        "She is very sweet.": "Ona jest bardzo słodka",
+        "Where is my car?" : "Gdzie jest mój samochód?",
+        "I like this song" : "Lubię tę piosenkę",
+        "This is my favorite show" : "To jest mój ulubiony program",
+        "I want a new jacket" : "Chcę nową kurtkę",
+        "You are late" : "Jesteś spóźniony",
+        "I am shocked" : "Jestem zszokowany",
+        "The weather is nice!" : "Pogoda jest ładna!",
+        "I have to go to the bathroom" : "Muszę iść do łazienki",
+        "I guess this is my ticket" : "To chyba mój bilet",
+        "I'm writing a fantasy book" : "Piszę książkę fantasy",
+        "I count the days until (to) spring" : "Liczę dni do wiosny",
+        "I point at the sign" : "Wskazuję na znak",
+        "I cook soup for dinner" : "Gotuję zupę na kolację",
+        "Just one little lie" : "Tylko jedno małe kłamstwo",
+        "That is a mistake" : "To jest błąd",
+        "This is pretty (quite) bad" : "To jest całkiem złe",
+        "This is pretty good!" : "To jest całkiem dobre!",
+        "I want to change that" : "Chcę to zmienić",
+        "So this is what you think" : "Więc to jest to co myślisz",
+        "Tomorrow I work" : "Jutro pracuję",
+        "I am proud" : "Jestem dumna",
+        "I am proud of myself" : "Jestem z siebie dumna",
+        "I get coffee tomorrow" : "Jutro dostanę kawę"
     },
+
+
     "pluralization_data": {
-        "Paczka": "Paczki"
+        "Paczka"    : "Paczki",
+        "Napis"     : "Napisy",
+        "Znamię"    : "Znamięta",
+        "Pigułka"   : "Pigułki",
+        "Piosenka"  : "Piosenki",
+        "Tkanka"    : "Tkanki",
+        "Ksiądz"    : "Księża",
+        "Książka"   : "Książka",
+        "Słowo"	    : "Słowa",
+        "Tkanina"   : "Tkaniny",
+        "Budynek"   : "Budynki",
+        "Sklep"	    : "Sklepy",
+        "Gazeta"    : "Gazety",
+        "Znacznik"  : "Znaczniki",
+        "Przybór"   : "Przybory",
+        "Światło"   : "Światła",
+        "Okno"      : "Okna",
+        "Ogień"     : "Ognie"
     },
+
+
     "locative_grammar_data": {
-        "Dom": "Domu"
+        "Dom": "Domu",
+        "Sklep" : "Sklepu",
+        "Łazienka" : "Łazienki",
+        "Sypialnia" : "Sypialni",
+        "Plaża" : "Plażę",
+        "Łóżko" : "Łóżka",
+        "Teatr" : "Teatru",
+        "Biblioteka" : "Biblioteki",
+        "Kawiarnia" : "Kawiarni",
+        "Pole" : "Pola",
+        "Galeria" : "Galerii",
+        "Muzeum" : "Muzeum",
+        "Koncert" : "Koncert",
+        "Klub" : "Klubu",
+        "Festiwal" : "Festiwal",
+        "Butik" : "Butiku",
+        "Restauracja" : "Restauracji",
+        "Las" : "Lasu"
     },
+
+
     "follow_up_data": {
-        "Bright Light": [
+        "Bright Light : [_____] światło": [
             [
                 "jasne",
                 "jasny",
@@ -31,32 +96,94 @@
                 "jasnego"
             ],
             "Bright Lights",
-            "Jasnego \u00c5\u203awiat\u00c5\u201aa."
+            "Jasnego światła."
         ],
-        "Bright Light2": [
+        "Cold drink : [_____] napój": [
             [
-                "jasne",
-                "jasny",
-                "jasna",
-                "jasnego"
+                "zimny",
+                "zimno",
+                "zimna",
+                "zimnę"
             ],
-            "Bright Lights",
-            "Jasnego \u00c5\u203awiat\u00c5\u201aa."
+            "Cold drinks",
+            "zimne napoje"
+        ],
+        "Beautiful Star : Piękna [_____]" : [
+            [
+                "gwiazda",
+                "graficzny",
+                "gazeta",
+                "gruczołów"
+            ],
+            "Beautiful Stars",
+            "piękne gwiazdy"
+        ],
+        "Shiny Trophy : [_____] trofeum" : [
+            [
+                "błyszczący",
+                "błyszcząca",
+                "błyszczące",
+                "błyszczącego"
+            ],
+            "Shiny trophies",
+            "błyszczące trofea"
+        ],
+        "Nice City : [_____] miasto" : [
+            [
+                "ładne",
+                "ładnego",
+                "ładna",
+                "ładny"
+            ],
+            "Nice cities",
+            "ładne miasta"
         ]
     },
+
+
     "mc_eng_pol_data": {
-        "Easy": "\u00c5\u201aatwy",
+        "Easy": "łatwy",
         "Difficult": "trudny",
         "Hard": "twardy",
-        "Heavy": "ci\u00c4\u2122\u00c5\u00bcki",
+        "Heavy": "ciężki",
         "Scarf": "szalik",
-        "Wide": "szeroki"
+        "Wide": "szeroki",
+        "Long" : "długi",
+        "Candle" : "świeczka",
+        "Thin (Non-Person)" : "cienki",
+        "T-Shirt" : "koszulka",
+        "Earrings" : "kolczyki",
+        "Short" : "niski",
+        "Clean" : "czysty",
+        "Fat/Thick" : "gruby",
+        "Ugly" : "brzydki",
+        "Curling Iron" : "lokówka",
+        "Closed": "zamknięty",
+        "Warm" : "ciepły",
+        "Hot" : "gorący",
+        "Thin (Person)" : "chudy",
+        "Dirty" : "brudny",
+        "Soft" : "miękki",
+        "Narrow" : "wąski",
+        "Empty" : "pusty",
+        "Interesting" : "ciekawy",
+        "Happy/Cheerful" : "wesoły",
+        "Can" : "puszka",
+        "Box" : "pudło",
+        "Scissors" : "nożyczki"
+
     },
+
+
     "correct_case_ending_data": {
-        "I see (Widz\u00c4\u2122)": [
-            "They see [_____]",
-            "Widz\u00c4\u2026"
-        ]
-    },
-    "testing": "bleh"
+        "I see (Widzę)": ["They see","Widzą"],
+        "I hear (słyszę)" : ["You hear", "słyszysz"],
+        "I taste (smakuję)" : ["They taste", "smakują"],
+        "They taste (smakują)" : ["You taste", "smakujesz"],
+        "I will find out (dowiedzę się)" : ["You will find out", "dowiesz się"],
+        "You will find out(dowiesz się)" : ["They will find out", "dowiedzą się"],
+        "I need to (muszę)" : ["You need to", "musisz"],
+        "I think (myślę)" : ["You think", "myślisz"],
+        "You think (myślisz)" : ["They think", "myślą"]
+    }
 }

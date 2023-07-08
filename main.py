@@ -26,7 +26,7 @@ def setupFITB(dataSet, description):
     questionIndex = random.randint(0, len(questionsList)-1)
     question = questionsList[questionIndex]         
     answer = dataSet[question]
-    print("Answer = "+str(answer))
+    #print("Answer = "+str(answer))
     return fillInTheBlanks(question, answer, description)
 
 
@@ -74,7 +74,7 @@ def multipleChoice(dataset, description):
         indexes = random.sample(range(0, len(values)), 4)
         answerIndex = random.randint(0,3)
         print("What is the correct translation of "+keys[indexes[answerIndex]]+"?")
-        print(answerIndex+1)
+        #print(answerIndex+1)
         count = 1
         for i in indexes:
             print(str(count)+") "+values[i])
@@ -104,40 +104,54 @@ def typeFour(dataset):
 #Main Functions
 #---------------------------------------------------------------------
 
-def chooseQuestion(data):
+def chooseQuestion(data, select):
 
-    questionSelect = random.randint(0,7)
-    print("(Question type " + str(questionSelect+1)+")")
+    questionSelect = random.randint(0,6)
+    #print("(Question type " + str(questionSelect+1)+")")
+    
+    
+    #Only the first question (case 0) is vocab, the rest are grammar. Controlled below:
+    match(select):
+        case 1:
+            questionSelect = random.randint(1,6)
+        case 2:
+            questionSelect = random.randint(0,0)    
+        case 3:
+            questionSelect = random.randint(0,6)
+    match(questionSelect):
+        case 0:
+            return multipleChoice(data["mc_eng_pol_data"], "Translate the following word:")                     #V
+        case 1:
+            return setupFITB(data["sentence_translation_data"], "Translate the sentance into Polish:")          #G
+        case 2:
+            return setupFITB(data["pluralization_data"], "Correctly pluralize the noun:")                       #G
+        case 3:
+            return typeFour(data["follow_up_data"])                                                             #G
+        case 4:
+            return multipleChoice(data["adj_conj_data"], "Place the correct word to finish the sentence:")      #G
+        case 5:
+            return setupFITB(data["locative_grammar_data"], "Use the locative case for the following noun:")    #G
+        case 6:
+            return setupFITB(data["correct_case_ending_data"], "Fill  in the blank with the correct case ending describing the person in the example:")   #G        
 
-    if questionSelect == 0:
-        return multipleChoice(data["adj_conj_data"], "Place the correct word to finish the sentence:")
-    elif questionSelect == 1:
-        return setupFITB(data["sentence_translation_data"], "Translate the sentance into Polish:")
-    elif questionSelect == 2:
-        return setupFITB(data("pluralization_data"), "Correctly pluralize the noun:")
-    elif questionSelect == 3:
-        return typeFour(data("follow_up_data"))
-    elif questionSelect == 4:
-        return multipleChoice(data("mc_eng_pol_data"), "Translate the following word:")
-    elif questionSelect == 5:
-        return setupFITB(data("locative_grammar_data"), "Use the locative case for the following noun:")
-    elif questionSelect == 6:
-        return setupFITB(data("correct_case_ending_data"), "Testing")
-        
+            
+
+
 def addData(data):
-    data["testing"] = "bleh"
-    with open("data.json", 'w') as outfile:
-        outfile.write(json.dumps(data, indent=4))
-        print("Wrote to file.")
-        return
+    print("not implemented yet, waiting for GUI implementation.")
+    # data["testing"] = "bleh"
+    # with open("data.json", 'w') as outfile:
+    #     outfile.write(json.dumps(data, indent=4))
+    #     print("Wrote to file.")
+    #     return
 
-def startQuiz(data):
+def startQuiz(data, select):
     submit = ""
     totalCorrect = 0
     totalQuestion = 1
     while (submit != "Quit" or submit != "Q" or submit != "quit"):
         print("-----------------------------------------\nQuestion "+str(totalQuestion)+":")
-        questionResult = chooseQuestion(data)
+        questionResult = chooseQuestion(data, select)
         #Scoring system: 1 is a correct answer, -1 is exit quiz
         
         if (questionResult == 1):
@@ -160,23 +174,30 @@ def startQuiz(data):
 
 
 def main():
-    with open('data.json') as json_file:
+    with open('data.json', 'r', encoding='utf-8') as json_file:
+        #data = json.dumps(json.load(json_file), ensure_ascii=False)
         data = json.load(json_file)
+        #print(data)
     
     menu = 0
     while (menu != -1):
         print('''Select an option and press enter:
 1. Polish Quiz
-2. Quit
-3. Add data''')
+2. Add data
+3. Quit''')
         menu = input()
         if (menu == '1'):
-            startQuiz(data)
+            print("Would you like to be quizzed in grammar, vocab, or both?\n1) Grammar\n2) Vocab\n3) All")
+            select = input()
+            
+            if (select == '1' or select == '2' or select == '3'):
+                startQuiz(data, int(select))
+            
         elif (menu == '2'):
+            addData(data)
+        elif (menu == '3'):
             print("Quitting")
             exit()
-        elif (menu == '3'):
-            addData(data)
         else:
             print('Invalid option selected, try again.\n')
 
