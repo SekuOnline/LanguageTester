@@ -1,6 +1,6 @@
 import random, json
 import PySimpleGUI as sg
-import layoutData
+# import layoutData
 #---------------------------------------------------------------------
 #Global Variables | Ease of use changing of important test numbers
 #---------------------------------------------------------------------
@@ -30,11 +30,13 @@ def checkFlashcardAnswer(answer, userAnswer):
     userAnswer = userAnswer.lower()
     answer = answer.lower()
     if userAnswer == answer or userAnswer == answer + ")":
-        return 1, "Correct!"
+        print("correct answer")
+        return 1, "Correct!", ''
     
     elif userAnswer == 'skip':
-        return -1, "Question skipped"
-    return 0, ("Incorrect.\nThe correct answer was: "+ answer + ".")
+        return (-1), "Question skipped.", ''
+    print("incorrect answer")
+    return 0, "Incorrect. The correct answer was: ", answer
 
 def setupFITB(dataSet, description):
     questionsList = list(dataSet.keys())
@@ -50,7 +52,6 @@ def setupFlashcard(dataSet):
     question = questionsList[questionIndex]         
     answer = dataSet[question]
     #print("Answer = "+str(answer))
-    print (question, answer)
     return question, answer
 
 #---------------------------------------------------------------------
