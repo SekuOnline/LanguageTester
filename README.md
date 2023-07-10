@@ -1,6 +1,7 @@
 # LanguageTester
 Basic program designed to create random questions from a DB of key-value language translations for a user to practice with.
-Basic 'flashcard' implementation done within this python version. The project will continue in a web-app format in the future.
+
+Basic 'flashcard' implementation finished within this python version. The project will continue in a web-app format in the future.
 
 Requires python 3.11, pysimplegui
 
