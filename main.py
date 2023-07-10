@@ -198,7 +198,9 @@ def flashcardWindow(data, setType):
         elif event == '-SUBMIT-' or event == '_Enter' or event == '-SKIP-' or event == '_Tab':
             #print(values['-FLASHCARD_ANSWER-'])
             if event == "-SKIP-" or event == '_Tab':
+
                 checkResult, resultDescription, correctAnswer = (-1), 'Question skipped.', ''
+                checkResult, resultDescription, correctAnswer = funcData.checkFlashcardAnswer(answer, 'skip')
             else:
                 checkResult, resultDescription, correctAnswer = funcData.checkFlashcardAnswer(answer,values['-FLASHCARD_ANSWER-'])
             if (checkResult == 1):
