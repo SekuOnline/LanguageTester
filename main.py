@@ -162,7 +162,7 @@ def flashcardWindow(data, setType):
                     usedTerms[question] = answer
                     break
                 
-            print(usedTerms)
+            #print(usedTerms)
             #Randomizing whether the question is polish->english or english->polish
 
             window['-FLASHCARD_QUESTION-'].update(font=(urm, flashcard_question))
@@ -186,7 +186,7 @@ def flashcardWindow(data, setType):
         
         #---------------------------------
         event, values = window.read()
-        print(event, values)
+        #print(event, values)
         if event == sg.WIN_CLOSED or event == 'Quit':
             window.close()
             break 
@@ -229,7 +229,7 @@ def scoreWindow(data, score):
     scoreValues = score.split('/')
     scorePercent = round((int(scoreValues[0]) / int(scoreValues[1])) * 100 )
    
-    print("score%" +str(scorePercent))
+    #print("score%" +str(scorePercent))
     window['-SCORE_PERCENTAGE-'].update(str(scorePercent)+ '%')
     #Changes dependent on score thresholds:
     if (scorePercent >= 80):

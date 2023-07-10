@@ -26,12 +26,12 @@ def checkFlashcardAnswer(answer, userAnswer):
     formattedAnswer = answer
     answer = answer.replace(" ", "")
     if userAnswer == answer or userAnswer == answer + ")":
-        print("correct answer")
+        #print("correct answer")
         return 1, "Correct!", formattedAnswer
     
     elif userAnswer == 'skip':
         return (-1), "Question skipped.", formattedAnswer
-    print("incorrect answer")
+    #("incorrect answer")
     return 0, "Incorrect. The correct answer was: ", formattedAnswer
 
 def setupFlashcard(dataSet):
