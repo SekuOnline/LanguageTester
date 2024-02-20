@@ -10,5 +10,5 @@ Console window can be removed by changing main.py to main.pyw
 Required fonts are provided within the resource folder.
 
 
-David Seku, Summer 2023.
+David Sedarous, Summer 2023.
 
